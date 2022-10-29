@@ -1,0 +1,9 @@
+Log of changes
+
+
+While creating the code, I realised that we would need the first page to 
+show the multiple users that might be using the app. Therefore the main page should ask the user to create / choose the active profile that we need 
+to work on.
+
+From that point onward , we can either create contacts for that user, or test his levels if the adequate users are already created. We could also see all history for that same profile.
+Therefore , every table should be link to one profile using the Profile ID: 

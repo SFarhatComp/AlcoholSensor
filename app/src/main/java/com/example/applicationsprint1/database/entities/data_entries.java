@@ -24,9 +24,13 @@ public class data_entries {
     public String dateOfData;
 
 
-
-
-
-
-
+    public data_entries(int dataID, int data, int userId, String userLastName, String userFirstName, String canHeDrive, String dateOfData) {
+        this.dataID = dataID;
+        this.data = data;
+        this.userId = userId;
+        this.userLastName = userLastName;
+        this.userFirstName = userFirstName;
+        this.canHeDrive = canHeDrive;
+        this.dateOfData = dateOfData;
+    }
 }
