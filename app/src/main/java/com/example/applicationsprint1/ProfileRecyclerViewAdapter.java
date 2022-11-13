@@ -1,5 +1,6 @@
 package com.example.applicationsprint1;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,17 +55,16 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
     public void onBindViewHolder(@NonNull ProfileRecyclerViewAdapter.ViewHolder holder, int position) {
 
         // Setting the text on text viewer
-
-
         holder.getTextProfileInformation().setText("  "+ (position+1) + " . " + listOfProfiles.get(position).lastname + ", "+listOfProfiles.get(position).firstName);
 
+        // Setting ON click Listener in Order to Open a Specific Profile ;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position_of_holder = holder.getLayoutPosition();
-//                Intent intent = new Intent(view.getContext(), ProfileInformationActivity.class);
-//                intent.putExtra("profile_id", listOfProfiles.get(position_of_holder).ProfileId);
-//                view.getContext().startActivity(intent);
+                Intent intent = new Intent(view.getContext(), ProfileViewerActivity.class);
+                intent.putExtra("profile_id", listOfProfiles.get(position_of_holder).profileID);
+                view.getContext().startActivity(intent);
             }
         });
     }

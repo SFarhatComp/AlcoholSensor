@@ -7,3 +7,10 @@ to work on.
 
 From that point onward , we can either create contacts for that user, or test his levels if the adequate users are already created. We could also see all history for that same profile.
 Therefore , every table should be link to one profile using the Profile ID: 
+
+
+----------------------------------------------
+Second Entry to the Log:
+
+
+The recycler view adapter has been implemented which allow th euser to see a list of all active profiles on the apps local databes. Then the user can click on the desired profile which will open the activity related to that specific user. Once that is done, we get to a second activity with the specific users information where that user can , via a fragment add multiple different contacts. That user can also test his levels of intoxication with a different fragment button. 

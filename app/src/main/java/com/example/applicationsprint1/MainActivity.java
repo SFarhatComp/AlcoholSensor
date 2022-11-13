@@ -32,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SetUp(); // This function call for the init of the variables
+        SetUp();
+
+        // This function call for the init of the variables
 //
-        //This for loop is only to test valid input in the database profile
+        //This for loop is only to test valid input in the database profile to make sure the database work and is displayed on the main page;
 //        for (int i=0;i<5;i++){
 //
 //            db.profileDao().insertProfile(new profile(0,"Sami","Farhat","male",185,120,23));
@@ -42,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
 //
 //        }
 
+
+
+
+//        for ( int i=0; i<ListOfProfiles.size();i++){
+//
+//            db.profileDao().delete(ListOfProfiles.get(i));
+//        }
+
+        // The following section is to set up the recycler view.
         ListOfProfiles=db.profileDao().getAll();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         customRecyclerViewAdapter= new ProfileRecyclerViewAdapter(ListOfProfiles);

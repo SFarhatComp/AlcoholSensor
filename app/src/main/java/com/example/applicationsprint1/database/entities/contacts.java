@@ -23,7 +23,7 @@ public class contacts {
     public int priority;
 
 
-    public contacts(int contactID,int profileID, String contactFirstName, String contactLastName, int contactPhoneNumber, int alternatePhoneNumber, int priority) {
+    public contacts(int profileID,int contactID, String contactFirstName, String contactLastName, int contactPhoneNumber, int alternatePhoneNumber, int priority) {
         this.contactID = contactID;
         this.profileID=profileID;
         this.contactFirstName = contactFirstName;

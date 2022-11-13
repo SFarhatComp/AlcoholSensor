@@ -30,7 +30,14 @@ public interface ContactsDao {
 
     // This returns a contact by its contact ID, will be useful to set and fetch values for a specific ID
     @Query("SELECT * FROM contact_table WHERE Profile_ID=:profileID ")
-    contacts FindById(int profileID);
+    List<contacts> FindById(int profileID);
+
+    @Query("SELECT * FROM contact_table WHERE Profile_ID=:profileID AND contactID=:contact_ID")
+    contacts FindByProfileIdAndContactID(int profileID,int contact_ID);
+
+
+
+
 
 
 

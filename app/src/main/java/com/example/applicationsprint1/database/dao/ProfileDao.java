@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.applicationsprint1.database.entities.profile;
 
@@ -24,6 +25,7 @@ public interface ProfileDao {
     // This returns a profile by its profile ID, will be useful to set and fetch values for a specific ID
     @Query("SELECT * FROM profile_table WHERE profileID=:profileID ")
     profile FindById(int profileID);
+
 
 
 
