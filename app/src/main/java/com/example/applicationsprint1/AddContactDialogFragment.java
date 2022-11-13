@@ -57,8 +57,8 @@ public class AddContactDialogFragment extends DialogFragment {
 
                 else {
 
-                    int PhoneNumber__= Integer.parseInt(PhoneNumber);
-                    int AltPhoneNumber__=Integer.parseInt(AltPhoneNumber);
+                    double PhoneNumber__= Double.valueOf(PhoneNumber);
+                    double AltPhoneNumber__=Double.valueOf(AltPhoneNumber);
                     int Priority__=Integer.parseInt(Priority);
 
                     AppDatabase db = AppDatabase.CreateDatabase(getContext());

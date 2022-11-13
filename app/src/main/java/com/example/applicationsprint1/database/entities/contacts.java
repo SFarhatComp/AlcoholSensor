@@ -16,14 +16,14 @@ public class contacts {
     @ColumnInfo(name = "Profile_ID")
     public int profileID;
     @ColumnInfo(name="contact_phoneNumber")
-    public int contactPhoneNumber;
+    public double contactPhoneNumber;
     @ColumnInfo(name="contact_alternatePhoneNumber")
-    public int alternatePhoneNumber;
+    public double alternatePhoneNumber;
     @ColumnInfo(name="priority_of_contact")
     public int priority;
 
 
-    public contacts(int profileID,int contactID, String contactFirstName, String contactLastName, int contactPhoneNumber, int alternatePhoneNumber, int priority) {
+    public contacts(int profileID,int contactID, String contactFirstName, String contactLastName, double contactPhoneNumber, double alternatePhoneNumber, int priority) {
         this.contactID = contactID;
         this.profileID=profileID;
         this.contactFirstName = contactFirstName;

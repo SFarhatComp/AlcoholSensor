@@ -26,22 +26,35 @@ public class MainActivity extends AppCompatActivity {
     protected List<profile> ListOfProfiles;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SetUp(); // This function call for the init of the variables
-//
-        //This for loop is only to test valid input in the database profile
-//        for (int i=0;i<5;i++){
-//
-//            db.profileDao().insertProfile(new profile(0,"Sami","Farhat","male",185,120,23));
-//
-//
-//        }
+        SetupRecyclerView();
+        OnClicks();
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SetupRecyclerView();
+
+    }
+
+    void SetUp(){
+        // set the variables equal to the correct items in the layout ;
+        DisplayButton_= findViewById(R.id.DisplayButton);
+        FragmentButton_=findViewById(R.id.FragmentButton);
+        ListViewOfProfile=findViewById(R.id.ListViewer);
+        //InformationDisplays=findViewById(R.id.InformationDisplayer);
+        db = AppDatabase.CreateDatabase(getApplicationContext());
+};
+
+
+    void SetupRecyclerView(){
         ListOfProfiles=db.profileDao().getAll();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         customRecyclerViewAdapter= new ProfileRecyclerViewAdapter(ListOfProfiles);
@@ -52,35 +65,26 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-void SetUp(){
-        // set the variables equal to the correct items in the layout ;
-        DisplayButton_= findViewById(R.id.DisplayButton);
-        FragmentButton_=findViewById(R.id.FragmentButton);
-        ListViewOfProfile=findViewById(R.id.ListViewer);
-        InformationDisplays=findViewById(R.id.InformationDisplayer);
-        db = AppDatabase.CreateDatabase(getApplicationContext());
-};
-
 void OnClicks(){
 
     FragmentButton_.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
-
+            AddUserDialogFragment dialog = new AddUserDialogFragment();
+            dialog.show(getSupportFragmentManager(),"AddUserDialogFragment");
             // This button should call a fragment that would allow a user to create a "profile:
         }
     });
 
 
-    DisplayButton_.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-            // The display button will allow the user to change between two different views, either the display with last name, or the display with priorities in case of emergency
-        }
-    });
+//    DisplayButton_.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//
+//            // The display button will allow the user to change between two different views, either the display with last name, or the display with priorities in case of emergency
+//        }
+//    });
 
 
 

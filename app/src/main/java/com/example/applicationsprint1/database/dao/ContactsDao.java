@@ -19,8 +19,8 @@ public interface ContactsDao {
 
 
     // This query returns a list of all contacts but sorted with the LAST NAME in Ascending order
-    @Query("SELECT * FROM contact_table ORDER BY contact_lastname,contact_firstname ASC")
-    List<contacts> getAllByLastName();
+    @Query("SELECT * FROM contact_table WHERE Profile_ID=:profileID ORDER BY contact_lastname,contact_firstname ASC")
+    List<contacts> getAllByLastName(int profileID);
 
 
     // This query returns a list of all contacts but sorted with the priority first then last name and first name
@@ -34,11 +34,6 @@ public interface ContactsDao {
 
     @Query("SELECT * FROM contact_table WHERE Profile_ID=:profileID AND contactID=:contact_ID")
     contacts FindByProfileIdAndContactID(int profileID,int contact_ID);
-
-
-
-
-
 
 
     @Insert

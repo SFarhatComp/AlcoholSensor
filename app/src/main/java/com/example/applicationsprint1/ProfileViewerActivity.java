@@ -1,6 +1,8 @@
 package com.example.applicationsprint1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +14,12 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.applicationsprint1.database.AppDatabase;
+import com.example.applicationsprint1.database.entities.contacts;
 import com.example.applicationsprint1.database.entities.profile;
 
 import org.w3c.dom.Text;
+
+import java.util.List;
 
 public class ProfileViewerActivity extends AppCompatActivity {
 
@@ -27,7 +32,10 @@ public class ProfileViewerActivity extends AppCompatActivity {
     protected Button ContactOrganise;
     protected Button TestButton;
     protected Button TestHistory;
-
+    protected RecyclerView ListOfContacts_;
+    protected ContactRecyclerViewAdapter contactRecyclerViewAdapter;
+    protected AppDatabase db = AppDatabase.CreateDatabase(this);
+    protected int profileId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,17 +50,17 @@ public class ProfileViewerActivity extends AppCompatActivity {
         ContactOrganise = findViewById(R.id.ContactOrganiser);
         TestButton = findViewById(R.id.TestButton);
         TestHistory = findViewById(R.id.HistoryButton);
-
+        ListOfContacts_=findViewById(R.id.ListOfContacts);
 
         // Setting initial value for the text view
         ProfileName.setText("");
         ProfileAge.setText("");
         ProfileBody.setText("");
         Intent intent = getIntent();
-        int profileId = intent.getIntExtra("profile_id", 0);
+        profileId = intent.getIntExtra("profile_id", 0);
 
         if (profileId != 0) {
-            AppDatabase db = AppDatabase.CreateDatabase(this);
+
             profile Profile = db.profileDao().FindById(profileId);
             ProfileName.setText(Profile.profileID + ". " + Profile.lastname + ", " + Profile.firstName);
             ProfileAge.setText("User's Age : " + Profile.age + "     User's Gender:  " + Profile.gender);
@@ -116,6 +124,7 @@ public class ProfileViewerActivity extends AppCompatActivity {
             }
         });
 
+
         ContactOrganise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,5 +147,24 @@ public class ProfileViewerActivity extends AppCompatActivity {
                 // open a activity for test history
             }
         });
+
+
+
+        setupRecyclerView();
+
+
+
     }
+
+    protected void setupRecyclerView(){
+
+        List<contacts> contactsL= db.contactsDao().getAllByLastName(profileId);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        contactRecyclerViewAdapter=new ContactRecyclerViewAdapter(contactsL);
+        ListOfContacts_.setLayoutManager(linearLayoutManager);
+        ListOfContacts_.setAdapter(contactRecyclerViewAdapter);
+
+
+
+    };
 }

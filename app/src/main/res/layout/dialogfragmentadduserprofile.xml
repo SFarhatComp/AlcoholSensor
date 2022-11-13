@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/FirstNameUserInput"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:ems="10"
+        android:hint="First Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/LastNameUserInput"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="Last Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/GenderUserInput"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="Gender"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/HeightuserInpt"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="Height"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/WeightUserInput"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="Weight in Kilos"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/AgeUserInput"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="Age"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/SaveButtonUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/CancelbuttonUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Cancel" />
+</LinearLayout>
