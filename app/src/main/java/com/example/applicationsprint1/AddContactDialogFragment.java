@@ -63,6 +63,7 @@ public class AddContactDialogFragment extends DialogFragment {
 
                     AppDatabase db = AppDatabase.CreateDatabase(getContext());
                     db.contactsDao().InsertContact(new contacts(CurrentProfileId,0,FirstName,LastName,PhoneNumber__,AltPhoneNumber__,Priority__));
+                    ((ProfileViewerActivity) requireActivity()).setupRecyclerView();
                     dismiss();
 
                 }

@@ -7,7 +7,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.example.applicationsprint1.database.entities.contacts;
-import com.example.applicationsprint1.database.entities.profile;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public interface ContactsDao {
 
 
     // This query returns a list of all contacts but sorted with the LAST NAME in Ascending order
-    @Query("SELECT * FROM contact_table WHERE Profile_ID=:profileID ORDER BY contact_lastname,contact_firstname ASC")
+    @Query("SELECT * FROM contact_table WHERE Profile_ID=:profileID ORDER BY contact_lastname ASC")
     List<contacts> getAllByLastName(int profileID);
 
 
@@ -36,11 +35,13 @@ public interface ContactsDao {
     contacts FindByProfileIdAndContactID(int profileID,int contact_ID);
 
 
+
+    @Query("UPDATE contact_table SET contact_phoneNumber=:PhoneNumber,contact_alternatePhoneNumber=:AltPhoneNo,priority_of_contact=:Priority WHERE Profile_ID=:profileID AND contactID=:contact_ID")
+    void update(int profileID,int contact_ID,double PhoneNumber, double AltPhoneNo, int Priority);
+
     @Insert
     void InsertContact(contacts... Contact);
     // Delete a contact from the database if needed
-
-
 
     @Delete
     void delete(contacts Contact);

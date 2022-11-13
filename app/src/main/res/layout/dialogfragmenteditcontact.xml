@@ -5,6 +5,15 @@
     android:orientation="vertical">
 
     <EditText
+        android:id="@+id/ContactIDInput"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Contact ID to edit"
+        android:inputType="number" />
+
+    <EditText
         android:id="@+id/EditPhoneNumberInput"
         android:layout_width="match_parent"
         android:layout_height="55dp"
@@ -36,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Save" />
+        android:text="Update" />
 
     <Button
         android:id="@+id/EditCancelButton"

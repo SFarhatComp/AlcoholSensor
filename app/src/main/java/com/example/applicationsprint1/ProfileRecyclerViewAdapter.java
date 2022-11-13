@@ -18,7 +18,7 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
 
 
     private List<profile> listOfProfiles;
-    //private int flag;
+
     // This class hold the element inside the Layout, of every item created in this recycler view
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -55,7 +55,7 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
     public void onBindViewHolder(@NonNull ProfileRecyclerViewAdapter.ViewHolder holder, int position) {
 
         // Setting the text on text viewer
-        holder.getTextProfileInformation().setText("  "+ (position+1) + " . " + listOfProfiles.get(position).lastname + ", "+listOfProfiles.get(position).firstName);
+        holder.getTextProfileInformation().setText(listOfProfiles.get(position).lastname + ", "+listOfProfiles.get(position).firstName);
 
         // Setting ON click Listener in Order to Open a Specific Profile ;
         holder.itemView.setOnClickListener(new View.OnClickListener() {

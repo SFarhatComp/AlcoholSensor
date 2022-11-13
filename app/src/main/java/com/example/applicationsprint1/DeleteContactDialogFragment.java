@@ -71,6 +71,8 @@ public class DeleteContactDialogFragment extends DialogFragment {
                     else {
 
                     db.contactsDao().delete(ContactToDelete);
+                    Toast.makeText(getContext(),"The Contact has been deleted ",Toast.LENGTH_SHORT).show();
+                    ((ProfileViewerActivity) requireActivity()).setupRecyclerView();
                     dismiss();
                     }
 

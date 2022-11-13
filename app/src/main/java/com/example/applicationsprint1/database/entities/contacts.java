@@ -7,14 +7,14 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "contact_table")
 public class contacts {
+    @ColumnInfo(name = "Profile_ID")
+    public int profileID;
     @PrimaryKey(autoGenerate = true)
     public int contactID;
     @ColumnInfo(name="contact_firstname")
     public String contactFirstName;
     @ColumnInfo(name="contact_lastname")
     public String contactLastName;
-    @ColumnInfo(name = "Profile_ID")
-    public int profileID;
     @ColumnInfo(name="contact_phoneNumber")
     public double contactPhoneNumber;
     @ColumnInfo(name="contact_alternatePhoneNumber")

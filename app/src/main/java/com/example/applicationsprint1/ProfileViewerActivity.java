@@ -23,7 +23,7 @@ import java.util.List;
 
 public class ProfileViewerActivity extends AppCompatActivity {
 
-
+    // XML file data types
     protected TextView ProfileName;
     protected TextView ProfileAge;
     protected TextView ProfileBody;
@@ -32,10 +32,15 @@ public class ProfileViewerActivity extends AppCompatActivity {
     protected Button ContactOrganise;
     protected Button TestButton;
     protected Button TestHistory;
+     //Declarations for the list
     protected RecyclerView ListOfContacts_;
     protected ContactRecyclerViewAdapter contactRecyclerViewAdapter;
     protected AppDatabase db = AppDatabase.CreateDatabase(this);
+
+
+
     protected int profileId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,17 +55,24 @@ public class ProfileViewerActivity extends AppCompatActivity {
         ContactOrganise = findViewById(R.id.ContactOrganiser);
         TestButton = findViewById(R.id.TestButton);
         TestHistory = findViewById(R.id.HistoryButton);
-        ListOfContacts_=findViewById(R.id.ListOfContacts);
+        ListOfContacts_ = findViewById(R.id.ListOfContacts);
+
 
         // Setting initial value for the text view
         ProfileName.setText("");
         ProfileAge.setText("");
         ProfileBody.setText("");
+
+        // Getting the value from the Intent to keep the current profile.
+
+
         Intent intent = getIntent();
         profileId = intent.getIntExtra("profile_id", 0);
 
-        if (profileId != 0) {
 
+        // Double check to make sure the profile ID is existent, might be uselesss.
+
+        if (profileId != 0) {
             profile Profile = db.profileDao().FindById(profileId);
             ProfileName.setText(Profile.profileID + ". " + Profile.lastname + ", " + Profile.firstName);
             ProfileAge.setText("User's Age : " + Profile.age + "     User's Gender:  " + Profile.gender);
@@ -69,13 +81,20 @@ public class ProfileViewerActivity extends AppCompatActivity {
         }
 
 
-        // Simple Back Button to go back to previous state
+
+        // Simple Back Button to go back to previous Activity
         BButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 finish();
             }
         });
+
+
+
+        // This Contact option allows us to either add, delete or remove a contact. using three different fragments.
+
 
         ContactOption.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,41 +107,68 @@ public class ProfileViewerActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
 
+
                             case R.id.AddContactButton:
-                                //Fragment To add a Contact via fragment
+
+                                //Fragment To add a Contact via fragment, We pass the current profile id through the bundle in order to make sure we link the contacts to the right Profile
 
                                 AddContactDialogFragment dialog = new AddContactDialogFragment();
                                 Bundle bundle = new Bundle();
-                                bundle.putInt("CurrentProfile",profileId);
+                                bundle.putInt("CurrentProfile", profileId);
                                 dialog.setArguments(bundle);
-                                dialog.show(getSupportFragmentManager(),"AddContactDialogFragment");
-
+                                dialog.show(getSupportFragmentManager(), "AddContactDialogFragment");
 
                                 return true;
-                            case R.id.EditContactButton:
-                                // Fragment to Edit a Contact via fragment
-                                return true;
 
-                            case R.id.DeleteContactButton:
-                                // Fragment to Delete Contact by via fragment
+
+
+
+                                case R.id.EditContactButton:
+                                // Fragment to Edit a Contact via fragment // We either pass the contact ID , or the First Name and Last Name of the contact. I believe Contact ID would be more accurate
+
+
+                                    EditContactDialogFragment dialog2 = new EditContactDialogFragment();
+                                    Bundle bundle2 = new Bundle();
+                                    bundle2.putInt("CurrentProfile", profileId);
+                                    dialog2.setArguments(bundle2);
+                                    dialog2.show(getSupportFragmentManager(), "EditContactDialogFragment");
+
+
+
+
+                                    return true;
+
+
+
+
+                                case R.id.DeleteContactButton:
+                                // Fragment to Delete Contact by via fragment   We pass the current profile Id withh a bundle and we input the contact ID we want to delete. The contact ID will be displayed in the recycler view which will allow the user to know which contact to delete.
+
 
 
                                 DeleteContactDialogFragment dialog3 = new DeleteContactDialogFragment();
                                 Bundle bundle3 = new Bundle();
-                                bundle3.putInt("CurrentProfile",profileId);
+                                bundle3.putInt("CurrentProfile", profileId);
                                 dialog3.setArguments(bundle3);
-                                dialog3.show(getSupportFragmentManager(),"AddContactDialogFragment");
+                                dialog3.show(getSupportFragmentManager(), "DeleteContactDialogFragment");
+
+
                                 return true;
 
-                            default :
+                            default:
                                 return false;
                         }
 
                     }
                 });
-            popupMenu.show();
+                popupMenu.show();
             }
         });
+
+
+        setupRecyclerView();
+
+
 
 
         ContactOrganise.setOnClickListener(new View.OnClickListener() {
@@ -134,37 +180,51 @@ public class ProfileViewerActivity extends AppCompatActivity {
             }
         });
 
+
+
         TestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Need to implement the Test Activity ( WE ASK THE SENSOR HERE ) completly different activity
+                // Need to implement the Test Activity  completly different activity
             }
         });
+
+
+
 
         TestHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // open a activity for test history
+
+                // Implement the test history viewer activity.
+
             }
         });
 
 
-
-        setupRecyclerView();
-
-
-
     }
 
-    protected void setupRecyclerView(){
 
-        List<contacts> contactsL= db.contactsDao().getAllByLastName(profileId);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupRecyclerView();
+    }
+
+    protected void setupRecyclerView() {
+
+
+        List<contacts> contactsL = db.contactsDao().getAllByLastName(profileId);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        contactRecyclerViewAdapter=new ContactRecyclerViewAdapter(contactsL);
+        contactRecyclerViewAdapter = new ContactRecyclerViewAdapter(contactsL);
         ListOfContacts_.setLayoutManager(linearLayoutManager);
         ListOfContacts_.setAdapter(contactRecyclerViewAdapter);
 
 
 
-    };
+
+    }
+
+
+    ;
 }

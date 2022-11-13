@@ -26,7 +26,9 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             ContactInformations=itemView.findViewById(R.id.ContactInformations2);
         }
 
-    public TextView getContactName(){ return  ContactInformations;  }
+    public TextView getContactName(){
+
+            return  ContactInformations;  }
 
     }
 
@@ -46,13 +48,13 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
     @Override
     public void onBindViewHolder(@NonNull ContactRecyclerViewAdapter.ViewHolder holder, int position) {
 
-        holder.getContactName().setText(localSetOfContacts.get(position).contactID + ". " +localSetOfContacts.get(position).contactLastName + " , "+localSetOfContacts.get(position).contactFirstName+ ": " + localSetOfContacts.get(position).priority);
+        holder.getContactName().setText(localSetOfContacts.get(position).contactID + ". " +localSetOfContacts.get(position).contactLastName + " , "+localSetOfContacts.get(position).contactFirstName+ ". || Priority Of Contact || :  " + localSetOfContacts.get(position).priority);
 
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return localSetOfContacts.size();
     }
 }
