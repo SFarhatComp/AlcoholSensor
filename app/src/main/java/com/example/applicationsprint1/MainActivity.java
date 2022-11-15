@@ -4,7 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected ProfileRecyclerViewAdapter customRecyclerViewAdapter;
     protected AppDatabase db;
     protected List<profile> ListOfProfiles;
+    BLEService ble;
 
 
     @Override
@@ -33,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         SetUp(); // This function call for the init of the variables
         SetupRecyclerView();
         OnClicks();
-
+        Intent gattServiceIntent = new Intent(this, BLEService.class);
+        bindService(gattServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
 
@@ -78,6 +88,8 @@ void OnClicks(){
     });
 
 
+
+
 //    DisplayButton_.setOnClickListener(new View.OnClickListener() {
 //        @Override
 //        public void onClick(View view) {
@@ -91,6 +103,31 @@ void OnClicks(){
 
 }
 
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            ble = ((BLEService.LocalBinder) service).getService();
+            if (!ble.initialize())
+                Log.e("Main", "Can't Initialize Bluetooth");
+            ble.connect("50:65:83:88:26:28");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            ble = null;
+        }
+    };
+
+    private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
+        @SuppressLint({"DefaultLocale", "MissingPermission"})
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            Log.w("TEST" ,"mGattUpdateReceiver->onReceive->action="+action);
+            Log.i("TEST", intent.getStringExtra(BLEService.EXTRA_DATA));
+        }
+
+    };
 
 
 
