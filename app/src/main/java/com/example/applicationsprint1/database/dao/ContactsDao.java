@@ -23,8 +23,8 @@ public interface ContactsDao {
 
 
     // This query returns a list of all contacts but sorted with the priority first then last name and first name
-    @Query("SELECT * FROM contact_table ORDER BY priority_of_contact,contact_lastname,contact_firstname ASC")
-    List<contacts> getAllByPriority();
+    @Query("SELECT * FROM contact_table WHERE Profile_ID=:profileID ORDER BY priority_of_contact ASC")
+    List<contacts> getAllByPriority(int profileID);
 
 
     // This returns a contact by its contact ID, will be useful to set and fetch values for a specific ID

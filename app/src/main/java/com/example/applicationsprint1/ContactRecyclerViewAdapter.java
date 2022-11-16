@@ -19,18 +19,31 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView ContactInformations;
+        private TextView ContactInformations,ProfilePhoneNo,ProfilePriority_;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ContactInformations=itemView.findViewById(R.id.ContactInformations2);
+            ProfilePhoneNo=itemView.findViewById(R.id.ContactPhoneNumber);
+            ProfilePriority_=itemView.findViewById(R.id.ContactPriority);
         }
 
     public TextView getContactName(){
 
             return  ContactInformations;  }
 
-    }
+
+    public TextView getContactPhone(){
+
+        return  ProfilePhoneNo;  }
+
+
+    public TextView getContactPriority(){
+
+        return  ProfilePriority_;  }
+
+}
+
 
     public ContactRecyclerViewAdapter(List<contacts> localSetOfContacts) {
         this.localSetOfContacts = localSetOfContacts;
@@ -48,9 +61,16 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
     @Override
     public void onBindViewHolder(@NonNull ContactRecyclerViewAdapter.ViewHolder holder, int position) {
 
-        holder.getContactName().setText(localSetOfContacts.get(position).contactID + ". " +localSetOfContacts.get(position).contactLastName + " , "+localSetOfContacts.get(position).contactFirstName+ ". || Priority Of Contact || :  " + localSetOfContacts.get(position).priority);
 
 
+        // This implementation show when the organize button is not clicked
+        holder.getContactName().setText(localSetOfContacts.get(position).contactID + ". " +localSetOfContacts.get(position).contactLastName + " , "+localSetOfContacts.get(position).contactFirstName);
+        holder.getContactPhone().setText(String.format("%d",(long)localSetOfContacts.get(position).contactPhoneNumber).substring(0,3)+"-"+String.format("%d",(long)localSetOfContacts.get(position).contactPhoneNumber).substring(3,6)+"-"+String.format("%d",(long)localSetOfContacts.get(position).contactPhoneNumber).substring(6,10));
+        holder.getContactPriority().setText("Priority: " + localSetOfContacts.get(position).priority);
+
+
+
+        // this implementation show when the organize button IS clicked. which sends a flag
     }
 
     @Override

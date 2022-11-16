@@ -64,7 +64,8 @@ public class EditContactDialogFragment extends DialogFragment {
                     int ContactID_=Integer.parseInt(ContactID);
                     AppDatabase db = AppDatabase.CreateDatabase(getContext());
                     db.contactsDao().update(CurrentProfileId,ContactID_,PhoneNumber__,AltPhoneNumber__,Priority__);
-                    ((ProfileViewerActivity) requireActivity()).setupRecyclerView();
+                    ((ProfileViewerActivity) requireActivity()).setupRecyclerView(db.contactsDao().getAllByLastName(CurrentProfileId));
+                    Toast.makeText(getContext(),"You have edited the contact",Toast.LENGTH_SHORT).show();
                     dismiss();
 
                 }

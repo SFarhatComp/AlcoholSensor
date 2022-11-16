@@ -42,8 +42,9 @@ public class MainActivity extends AppCompatActivity {
         SetUp(); // This function call for the init of the variables
         SetupRecyclerView();
         OnClicks();
-        Intent gattServiceIntent = new Intent(this, BLEService.class);
-        bindService(gattServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+     //bluetooth connections. When testing the app without the bluetooth device, we have to comment out these lines
+        //Intent gattServiceIntent = new Intent(this, BLEService.class);
+        //bindService(gattServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
 
@@ -86,18 +87,6 @@ void OnClicks(){
             // This button should call a fragment that would allow a user to create a "profile:
         }
     });
-
-
-
-
-//    DisplayButton_.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//
-//            // The display button will allow the user to change between two different views, either the display with last name, or the display with priorities in case of emergency
-//        }
-//    });
-
 
 
 

@@ -36,7 +36,9 @@ public class ProfileViewerActivity extends AppCompatActivity {
     protected RecyclerView ListOfContacts_;
     protected ContactRecyclerViewAdapter contactRecyclerViewAdapter;
     protected AppDatabase db = AppDatabase.CreateDatabase(this);
-
+    protected   List<contacts> contactsL;
+    protected List<contacts> contactsL2;
+    protected  int condition =-1;
 
 
     protected int profileId;
@@ -77,7 +79,8 @@ public class ProfileViewerActivity extends AppCompatActivity {
             ProfileName.setText(Profile.profileID + ". " + Profile.lastname + ", " + Profile.firstName);
             ProfileAge.setText("User's Age : " + Profile.age + "     User's Gender:  " + Profile.gender);
             ProfileBody.setText("Height:  " + Profile.height + ",   Weight: " + Profile.weight);
-
+            //contactsL = db.contactsDao().getAllByLastName(profileId);
+            //contactsL2 = db.contactsDao().getAllByPriority(profileId);
         }
 
 
@@ -166,7 +169,7 @@ public class ProfileViewerActivity extends AppCompatActivity {
         });
 
 
-        setupRecyclerView();
+        //setupRecyclerView(contactsL);
 
 
 
@@ -175,10 +178,27 @@ public class ProfileViewerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // this will set up the list view in a specific manner
-                //Need to implement the organisation of the list
+                // this value starts at -1, if the value is Positive, show organised by last name, if value is Negative, organise by prio
+
+
+                if (condition==1){
+                    setupRecyclerView(db.contactsDao().getAllByLastName(profileId));
+
+                }
+
+                else {
+                    setupRecyclerView(db.contactsDao().getAllByPriority(profileId));
+
+
+
+                }
+                condition*=-1;
+
             }
         });
+
+
+
 
 
 
@@ -208,15 +228,15 @@ public class ProfileViewerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setupRecyclerView();
+        contactsL = db.contactsDao().getAllByLastName(profileId);
+        contactsL2 = db.contactsDao().getAllByPriority(profileId);
+        setupRecyclerView(contactsL);
     }
 
-    protected void setupRecyclerView() {
+    protected void setupRecyclerView(List<contacts> a) {
 
-
-        List<contacts> contactsL = db.contactsDao().getAllByLastName(profileId);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        contactRecyclerViewAdapter = new ContactRecyclerViewAdapter(contactsL);
+        contactRecyclerViewAdapter = new ContactRecyclerViewAdapter(a);
         ListOfContacts_.setLayoutManager(linearLayoutManager);
         ListOfContacts_.setAdapter(contactRecyclerViewAdapter);
 

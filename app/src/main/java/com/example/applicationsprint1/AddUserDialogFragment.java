@@ -73,6 +73,7 @@ public class AddUserDialogFragment extends DialogFragment {
                     AppDatabase db = AppDatabase.CreateDatabase(getContext());
                     db.profileDao().insertProfile(new profile(0,FirstName,LastName,Gender,Height___,Weight__,Age__));
                     ((MainActivity) requireActivity()).SetupRecyclerView();
+                    Toast.makeText(getContext(),"You have added a user",Toast.LENGTH_SHORT).show();
                     dismiss();
 
                 }
