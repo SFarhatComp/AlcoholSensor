@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     protected ProfileRecyclerViewAdapter customRecyclerViewAdapter;
     protected AppDatabase db;
     protected List<profile> ListOfProfiles;
-    BLEService ble;
 
 
     @Override
@@ -42,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
         SetUp(); // This function call for the init of the variables
         SetupRecyclerView();
         OnClicks();
-     //bluetooth connections. When testing the app without the bluetooth device, we have to comment out these lines
-        //Intent gattServiceIntent = new Intent(this, BLEService.class);
-        //bindService(gattServiceIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
 
@@ -91,32 +87,6 @@ void OnClicks(){
 
 
 }
-
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            ble = ((BLEService.LocalBinder) service).getService();
-            if (!ble.initialize())
-                Log.e("Main", "Can't Initialize Bluetooth");
-            ble.connect("50:65:83:88:26:28");
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            ble = null;
-        }
-    };
-
-    private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
-        @SuppressLint({"DefaultLocale", "MissingPermission"})
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-            Log.w("TEST" ,"mGattUpdateReceiver->onReceive->action="+action);
-            Log.i("TEST", intent.getStringExtra(BLEService.EXTRA_DATA));
-        }
-
-    };
 
 
 

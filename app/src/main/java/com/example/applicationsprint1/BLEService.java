@@ -23,7 +23,8 @@ public class BLEService extends Service {
     public static final String SerialPortUUID = "0000dfb1-0000-1000-8000-00805f9b34fb";
     //private int SerialPort=9600;
     //private String SerialPortBuffer = "AT+CURRUART="+SerialPort+"\r\n";
-    public final static String EXTRA_DATA = "com.example.bluetooth.le.EXTRA_DATA";
+    public final static String SERIALOUPUT = "SerialOutputHere";
+    public final static String OutputAction = "Output";
 
     BluetoothGattCharacteristic SerialPortCharacteristic;
 
@@ -44,7 +45,6 @@ public class BLEService extends Service {
             return BLEService.this;
         }
     }
-
 
     public static final String TAG = "BluetoothLeService";
     private BluetoothGatt bluetoothGatt;
@@ -77,6 +77,15 @@ public class BLEService extends Service {
             return false;
         }
         // connect to the GATT server on the device
+    }
+
+    @SuppressLint("MissingPermission")
+    public void close() {
+        if (bluetoothGatt == null) {
+            return;
+        }
+        bluetoothGatt.close();
+        bluetoothGatt = null;
     }
 
     private final BluetoothGattCallback bluetoothGattCallback = new BluetoothGattCallback() {
@@ -126,7 +135,9 @@ public class BLEService extends Service {
                                             BluetoothGattCharacteristic characteristic) {
             String SerialOutput = new String(characteristic.getValue());
             Log.i(TAG, SerialOutput);
-           // broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
+            Intent intent = new Intent(OutputAction);
+            intent.putExtra(SERIALOUPUT, SerialOutput);
+            sendBroadcast(intent);
         }
     };
 

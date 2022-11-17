@@ -206,6 +206,8 @@ public class ProfileViewerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Need to implement the Test Activity  completly different activity
+                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                startActivity(intent);
             }
         });
 

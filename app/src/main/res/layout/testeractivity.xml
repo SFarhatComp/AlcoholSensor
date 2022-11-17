@@ -9,7 +9,6 @@
         android:id="@+id/button"
         android:layout_width="260dp"
         android:layout_height="112dp"
-        android:text="TEST"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.417"
