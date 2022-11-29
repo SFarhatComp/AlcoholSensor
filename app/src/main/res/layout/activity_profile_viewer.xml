@@ -5,15 +5,15 @@
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context=".ProfileViewerActivity" >
+    tools:context=".ProfileViewerActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="21dp"
-        android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
@@ -25,6 +25,7 @@
         android:id="@+id/BackButton"
         android:layout_width="86dp"
         android:layout_height="65dp"
+        android:background="#D3FFF3"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintEnd_toStartOf="@+id/SettingButton"
         app:layout_constraintHorizontal_bias="0.0"
@@ -38,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Organize Contacts"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintEnd_toStartOf="@+id/SettingButton"
         app:layout_constraintHorizontal_bias="0.553"
@@ -49,6 +51,7 @@
         android:id="@+id/SettingButton"
         android:layout_width="94dp"
         android:layout_height="62dp"
+        android:background="#D3FFF3"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.949"
@@ -72,18 +75,25 @@
             android:id="@+id/CurrentUserName"
             android:layout_width="match_parent"
             android:layout_height="33dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/CurrentUserAge"
             android:layout_width="match_parent"
             android:layout_height="33dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:text="TextView" />
 
         <TextView
             android:id="@+id/CurrentUserBody"
             android:layout_width="match_parent"
             android:layout_height="35dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+
             android:text="TextView" />
 
         <androidx.recyclerview.widget.RecyclerView

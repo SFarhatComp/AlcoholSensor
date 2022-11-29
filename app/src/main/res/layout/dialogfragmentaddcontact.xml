@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD CONTACT"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        app:srcCompat="@drawable/contact_list_icon_contacts_management_service_web_app_mobile_app_smartphone_vector_illustration_642540_113" />
 
     <EditText
         android:id="@+id/FirstNameInput"
         android:layout_width="match_parent"
         android:layout_height="62dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="First Name"
         android:inputType="textPersonName" />
@@ -16,6 +36,8 @@
         android:id="@+id/LastNameInput"
         android:layout_width="match_parent"
         android:layout_height="57dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Last Name"
         android:inputType="textPersonName" />
@@ -24,6 +46,8 @@
         android:id="@+id/PhoneNumberInput"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Phone Number"
         android:inputType="number" />
@@ -32,6 +56,8 @@
         android:id="@+id/AltPhoneNumberInput"
         android:layout_width="match_parent"
         android:layout_height="65dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Alternate Phone Number"
         android:inputType="number" />
@@ -40,6 +66,8 @@
         android:id="@+id/PriorityInput"
         android:layout_width="match_parent"
         android:layout_height="63dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Priority "
         android:inputType="number" />

@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CREATE A USER"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:gravity="center" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        app:srcCompat="@drawable/screenshot_2022_11_28_192557" />
 
     <EditText
         android:id="@+id/FirstNameUserInput"
         android:layout_width="match_parent"
         android:layout_height="68dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="First Name"
         android:inputType="textPersonName" />
@@ -16,7 +35,9 @@
         android:id="@+id/LastNameUserInput"
         android:layout_width="match_parent"
         android:layout_height="59dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Last Name"
         android:inputType="textPersonName" />
@@ -25,7 +46,9 @@
         android:id="@+id/GenderUserInput"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Gender"
         android:inputType="textPersonName" />
@@ -34,7 +57,9 @@
         android:id="@+id/HeightuserInpt"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Height"
         android:inputType="number" />
@@ -43,7 +68,9 @@
         android:id="@+id/WeightUserInput"
         android:layout_width="match_parent"
         android:layout_height="63dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Weight in Kilos"
         android:inputType="number" />
@@ -52,7 +79,9 @@
         android:id="@+id/AgeUserInput"
         android:layout_width="match_parent"
         android:layout_height="63dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Age"
         android:inputType="number" />
@@ -61,13 +90,14 @@
         android:id="@+id/SaveButtonUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:text="Save" />
 
     <Button
         android:id="@+id/CancelbuttonUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:text="Cancel" />
+
 </LinearLayout>

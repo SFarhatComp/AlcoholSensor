@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="EDIT CONTACT"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:gravity="center" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        app:srcCompat="@drawable/screenshot_2022_11_28_193833" />
 
     <EditText
         android:id="@+id/ContactIDInput"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_marginTop="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Contact ID to edit"
         android:inputType="number" />
@@ -17,7 +36,9 @@
         android:id="@+id/EditPhoneNumberInput"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Phone Number"
         android:inputType="number" />
@@ -26,7 +47,9 @@
         android:id="@+id/EditAlternatePhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Alternate Phone Number"
         android:inputType="number" />
@@ -35,7 +58,9 @@
         android:id="@+id/EditPriorityNumber"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Priority"
         android:inputType="number" />
@@ -44,14 +69,14 @@
         android:id="@+id/EditSaveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:text="Update" />
 
     <Button
         android:id="@+id/EditCancelButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:text="Cancel" />
 
 </LinearLayout>

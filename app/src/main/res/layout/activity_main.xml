@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/purple_700"
+        android:background="#D3FFF3"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,11 +22,12 @@
         android:id="@+id/ListViewer"
         android:layout_width="367dp"
         android:layout_height="599dp"
-        android:layout_marginTop="52dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.878" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/FragmentButton"
@@ -38,7 +40,7 @@
         android:tint="#C5B1B1"
         app:layout_constraintBottom_toBottomOf="@+id/ListViewer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="#3F51B5"
+        app:rippleColor="#662C91"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -59,6 +61,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="List of active profiles:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
