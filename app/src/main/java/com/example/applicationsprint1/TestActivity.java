@@ -1,6 +1,8 @@
 package com.example.applicationsprint1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -9,11 +11,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +25,9 @@ import android.widget.Toast;
 import com.example.applicationsprint1.database.AppDatabase;
 import com.example.applicationsprint1.database.entities.data_entries;
 import com.example.applicationsprint1.database.entities.profile;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -35,11 +42,15 @@ public class TestActivity extends AppCompatActivity {
     IntentFilter intentFilter;
     TextView tv,tv2;
     ArrayList <Double> Temp= new ArrayList<Double>();
+    Button CallButton,TextButton,TextButton2,DismissButton;
+    BottomSheetDialog dialog;
+
     int profileID;
-    int Counter=0;
     int average;
     int Totalsum=0;
     String DrivingCapabilities;
+    ConstraintLayout constraintLayout;
+
 
     AppDatabase db = AppDatabase.CreateDatabase(this);
 
@@ -50,14 +61,16 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         testing = false;
+        dialog=new BottomSheetDialog(this);
         setContentView(R.layout.testeractivity);
         gattServiceIntent = new Intent(getApplicationContext(), BLEService.class);
         intentFilter = new IntentFilter();
         intentFilter.addAction(BLEService.OutputAction);
         Intent intent = getIntent();
         profileID=intent.getIntExtra("Profile_Id",-1);
-
+        constraintLayout= findViewById(R.id.constraintLayout);
         setupUI();
+        CreateDialog();
     }
 
     private void setupUI(){
@@ -93,6 +106,96 @@ public class TestActivity extends AppCompatActivity {
         }
     };
 
+
+
+    private void CreateDialog(){
+
+        View view = getLayoutInflater().inflate(R.layout.bottomfragementdialogforcallandtext,null,false);
+        CallButton=view.findViewById(R.id.CallButton);
+        TextButton=view.findViewById(R.id.AutomatedText);
+        TextButton2=view.findViewById(R.id.CustomText);
+        DismissButton=view.findViewById(R.id.Dismiss);
+
+
+
+        CallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Implement the call function
+
+                Toast.makeText(TestActivity.this, "You have successfully called ", Toast.LENGTH_LONG).show();
+
+
+                dialog.dismiss();
+                Toast.makeText(TestActivity.this, "Dismissed ", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        TextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Implement the text function
+
+                Toast.makeText(TestActivity.this, "You have successfully texted a automated message ", Toast.LENGTH_LONG).show();
+
+
+                dialog.dismiss();
+                Toast.makeText(TestActivity.this, "Dismissed ", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        TextButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Implement the text2 function
+
+                Toast.makeText(TestActivity.this, "You have successfully texted a custom message ", Toast.LENGTH_LONG).show();
+
+
+                dialog.dismiss();
+                Toast.makeText(TestActivity.this, "Dismissed ", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
+        DismissButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+                Toast.makeText(TestActivity.this, "Dismissed ", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        dialog.setContentView(view);
+
+    };
+
+
+    private void createSnackbar(){
+        Snackbar.make(constraintLayout,"Please call or text for help",Snackbar.LENGTH_LONG)
+                .setTextColor(Color.BLACK)
+                .setBackgroundTint(Color.YELLOW)
+                .setAction("Call", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Toast.makeText(TestActivity.this , "HelloWorld",Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setActionTextColor(Color.BLACK)
+                .show();
+
+
+    }
+
+
+
+
     private final BroadcastReceiver Receiver = new BroadcastReceiver() {
         @SuppressLint({"DefaultLocale", "MissingPermission"})
         @Override
@@ -121,20 +224,28 @@ public class TestActivity extends AppCompatActivity {
                 if (average <=400){
 
                     DrivingCapabilities ="Please call someone to come and get you";
+                    //createSnackbar();
+                    dialog.show();
 
                 }
                 else if (average >400 && average <= 750){
 
 
                     DrivingCapabilities ="You are not fit to drive";
-
+                   // createSnackbar();
+                    dialog.show();
                 }
 
                 else
 
                 { DrivingCapabilities ="You are fit to drive" ;
 
+                   // createSnackbar();
+                    dialog.show();
+
                 }
+
+                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                 testButton.setText("TEST DONE ");
                 tv.setText(DrivingCapabilities);
 
