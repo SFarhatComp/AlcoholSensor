@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class TestActivity extends AppCompatActivity {
 
     private boolean testing;
@@ -24,6 +26,7 @@ public class TestActivity extends AppCompatActivity {
     Intent gattServiceIntent;
     IntentFilter intentFilter;
     TextView tv;
+    ArrayList Temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +83,26 @@ public class TestActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            tv.setText(intent.getStringExtra(BLEService.SERIALOUPUT));
+
+            Temp.add(intent.getStringExtra(BLEService.SERIALOUPUT));
+
+            if (Temp.size()==5){
+
+                for (int i =0 ; i<5; i++){
+
+                    int totalsum=0;
+                    totalsum += Integer.parseInt(Temp.get(i).toString());
+                    int average= totalsum/5;
+                    tv.setText(intent.getStringExtra(BLEService.SERIALOUPUT));
+                }
+
+                //call the stop function
+            }
+
+
+
+
+
             Log.i("TEST", intent.getStringExtra(BLEService.SERIALOUPUT));
         }
     };
