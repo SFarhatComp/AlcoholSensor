@@ -26,7 +26,7 @@ public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecy
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            ProfileInformation = itemView.findViewById(R.id.UserProfileInformation);
+            ProfileInformation = itemView.findViewById(R.id.HistoryInformation);
 
         }
 

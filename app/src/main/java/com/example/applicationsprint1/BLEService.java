@@ -15,7 +15,7 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class BLEService extends Service {
@@ -25,6 +25,8 @@ public class BLEService extends Service {
     //private String SerialPortBuffer = "AT+CURRUART="+SerialPort+"\r\n";
     public final static String SERIALOUPUT = "SerialOutputHere";
     public final static String OutputAction = "Output";
+    public ArrayList <Double> temp = new ArrayList< Double > ();
+    public double averageValue = 0;
 
     BluetoothGattCharacteristic SerialPortCharacteristic;
 
@@ -70,7 +72,7 @@ public class BLEService extends Service {
 
         try {
             final BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
-                bluetoothGatt = device.connectGatt(this, false, bluetoothGattCallback);
+            bluetoothGatt = device.connectGatt(this, false, bluetoothGattCallback);
             return true;
         } catch (IllegalArgumentException exception) {
             Log.w(TAG, "Device not found with provided address.");
@@ -118,13 +120,14 @@ public class BLEService extends Service {
                 Log.e(TAG, "No GATT Server or wrong device");
             }
         }
+
         @SuppressLint("MissingPermission")
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 Log.w(TAG, "GATT Success");
             }
-                Log.w(TAG, "onServicesDiscovered received: " + status);
+            Log.w(TAG, "onServicesDiscovered received: " + status);
             SerialPortCharacteristic = bluetoothGatt.getService(UUID.fromString("0000dfb0-0000-1000-8000-00805f9b34fb")).getCharacteristic(UUID.fromString(SerialPortUUID)); //For some reason if it doesn't appear in Services
             Log.i(TAG, "Characteristic Connected" + String.valueOf(SerialPortCharacteristic.getUuid()));
             bluetoothGatt.setCharacteristicNotification(SerialPortCharacteristic, true);
@@ -134,14 +137,18 @@ public class BLEService extends Service {
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
             String SerialOutput = new String(characteristic.getValue());
-            Log.i(TAG, SerialOutput);
+
+
             Intent intent = new Intent(OutputAction);
             intent.putExtra(SERIALOUPUT, SerialOutput);
             sendBroadcast(intent);
+            Log.i(TAG, SerialOutput);
+            Log.i(TAG, " This is the average value " + averageValue);
+
         }
+
+        ;
+
+
     };
-
-
-
 }
-

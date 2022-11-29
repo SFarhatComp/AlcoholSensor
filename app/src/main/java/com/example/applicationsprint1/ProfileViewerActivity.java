@@ -207,6 +207,7 @@ public class ProfileViewerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Need to implement the Test Activity  completly different activity
                 Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                intent.putExtra("Profile_Id",profileId);
                 startActivity(intent);
             }
         });
@@ -218,6 +219,10 @@ public class ProfileViewerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+                Intent intent = new Intent(getApplicationContext(), historyactivity.class);
+                intent.putExtra("Profile_Id",profileId);
+                startActivity(intent);
                 // Implement the test history viewer activity.
 
             }

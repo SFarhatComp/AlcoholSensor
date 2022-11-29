@@ -8,6 +8,7 @@ import androidx.room.Query;
 
 import com.example.applicationsprint1.database.entities.data_entries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
