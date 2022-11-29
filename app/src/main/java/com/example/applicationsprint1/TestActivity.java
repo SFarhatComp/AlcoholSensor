@@ -41,7 +41,7 @@ public class TestActivity extends AppCompatActivity {
     int Totalsum=0;
     String DrivingCapabilities;
 
-    AppDatabase db = AppDatabase.CreateDatabase(getBaseContext());
+    AppDatabase db = AppDatabase.CreateDatabase(this);
 
 
 
@@ -102,7 +102,11 @@ public class TestActivity extends AppCompatActivity {
             testButton.setText("Currently Testing ");
             String s = intent.getStringExtra(BLEService.SERIALOUPUT);
             double s2 = Double.valueOf(s);
+
+            if (s2>150.0){
             Temp.add(s2);
+            }
+
 
             if (Temp.size()==5){
                for (int i =0 ; i<5; i++){
