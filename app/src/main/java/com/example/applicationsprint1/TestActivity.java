@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -54,6 +55,7 @@ public class TestActivity extends AppCompatActivity {
     int average;
     int Totalsum=0;
     double s2;
+    String PhoneNumber;
     String DrivingCapabilities;
     ConstraintLayout constraintLayout;
     AppDatabase db = AppDatabase.CreateDatabase(this);
@@ -78,6 +80,14 @@ public class TestActivity extends AppCompatActivity {
 
 
         if (ContextCompat.checkSelfPermission(TestActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(TestActivity.this, new String[]{Manifest.permission.CALL_PHONE},PERMISSION_CODE);
+
+
+        }
+
+
+        if (ContextCompat.checkSelfPermission(TestActivity.this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED){
 
             ActivityCompat.requestPermissions(TestActivity.this, new String[]{Manifest.permission.CALL_PHONE},PERMISSION_CODE);
 
@@ -141,7 +151,7 @@ public class TestActivity extends AppCompatActivity {
 
                 Toast.makeText(TestActivity.this, "You have successfully called ", Toast.LENGTH_LONG).show();
 
-                String PhoneNumber ="" + db.contactsDao().GetHighestPriority(profileID).contactPhoneNumber;
+                PhoneNumber ="" + db.contactsDao().GetHighestPriority(profileID).contactPhoneNumber;
                 Intent i = new Intent(Intent.ACTION_DIAL);
                 Log.e("PhoneNumber",PhoneNumber);
                 i.setData(Uri.parse("tel:"+PhoneNumber));
@@ -158,6 +168,9 @@ public class TestActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Implement the text function
 
+                PhoneNumber ="" + db.contactsDao().GetHighestPriority(profileID).contactPhoneNumber;
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(PhoneNumber, null, " Please come and get me at location : ",null,null );
                 Toast.makeText(TestActivity.this, "You have successfully texted a automated message ", Toast.LENGTH_LONG).show();
 
 
@@ -172,7 +185,12 @@ public class TestActivity extends AppCompatActivity {
                 // Implement the text2 function
 
                 Toast.makeText(TestActivity.this, "You have successfully texted a custom message ", Toast.LENGTH_LONG).show();
+                Intent smsIntent = new Intent(Intent.ACTION_SENDTO);
 
+                PhoneNumber ="" + db.contactsDao().GetHighestPriority(profileID).contactPhoneNumber;
+                smsIntent.setData(Uri.parse("smsto:" + Uri.encode(PhoneNumber)));
+                //smsIntent.putExtra("address", "sms:"+"5145812205");
+                startActivity(smsIntent);
 
                 dialog.dismiss();
                 Toast.makeText(TestActivity.this, "Dismissed ", Toast.LENGTH_LONG).show();
@@ -226,7 +244,7 @@ public class TestActivity extends AppCompatActivity {
             testButton.setText("Currently Testing ");
             String s = intent.getStringExtra(BLEService.SERIALOUPUT);
 
-            if(!(s.isEmpty())){
+            if(!(s.equals(""))){
                 s2 = Double.valueOf(s);
 
 
@@ -244,6 +262,8 @@ public class TestActivity extends AppCompatActivity {
                //call the stop function
                 unregisterReceiver(Receiver);
                 unbindService(serviceConnection);
+                Log.i("TAG", " This is the average value " + average);
+
 
 
                 if (average <=400){

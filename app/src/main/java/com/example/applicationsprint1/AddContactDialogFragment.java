@@ -50,7 +50,7 @@ public class AddContactDialogFragment extends DialogFragment {
                 //String AltPhoneNumber=AltPhoneNumber_.getText().toString(); Deprecated
                 String Priority = Priority_.getText().toString();
 
-                if (FirstName.equals("")||LastName.equals("")||PhoneNumber.equals("")||Priority.equals("")){
+                if (FirstName.equals("")||LastName.equals("")||PhoneNumber.equals("")||Priority.equals("")||PhoneNumber.length()!=10){
                     Toast.makeText(getContext(),"Please Enter Valid Values",Toast.LENGTH_SHORT).show();
                     return;
                 }

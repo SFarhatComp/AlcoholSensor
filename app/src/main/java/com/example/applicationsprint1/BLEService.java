@@ -143,7 +143,7 @@ public class BLEService extends Service {
             intent.putExtra(SERIALOUPUT, SerialOutput);
             sendBroadcast(intent);
             Log.i(TAG, SerialOutput);
-            Log.i(TAG, " This is the average value " + averageValue);
+
 
         }
 
