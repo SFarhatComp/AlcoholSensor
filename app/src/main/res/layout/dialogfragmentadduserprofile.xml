@@ -29,6 +29,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="First Name"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
         android:inputType="textPersonName" />
 
     <EditText
@@ -40,6 +41,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Last Name"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
         android:inputType="textPersonName" />
 
     <EditText
@@ -51,6 +53,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Gender"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
         android:inputType="textPersonName" />
 
     <EditText
@@ -62,6 +65,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Height"
+        android:digits="0123456789"
         android:inputType="number" />
 
     <EditText
@@ -73,6 +77,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Weight in Kilos"
+        android:digits="0123456789"
         android:inputType="number" />
 
     <EditText
@@ -84,6 +89,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Age"
+        android:digits="0123456789"
         android:inputType="number" />
 
     <Button

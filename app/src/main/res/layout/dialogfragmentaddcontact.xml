@@ -30,6 +30,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="First Name"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
         android:inputType="textPersonName" />
 
     <EditText
@@ -39,6 +40,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
         android:hint="Last Name"
         android:inputType="textPersonName" />
 
@@ -50,6 +52,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Phone Number"
+        android:digits="0123456789"
         android:inputType="number" />
 
     <EditText
@@ -60,6 +63,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Priority "
+        android:digits="0123456789"
         android:inputType="number" />
 
     <Button

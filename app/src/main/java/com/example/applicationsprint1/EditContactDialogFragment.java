@@ -35,7 +35,7 @@ public class EditContactDialogFragment extends DialogFragment {
         Priority_=view.findViewById(R.id.EditPriorityNumber);
         ContactID_=view.findViewById(R.id.ContactIDInput);
 
-
+        AppDatabase db = AppDatabase.CreateDatabase(getContext());
 
         EditSave_=view.findViewById(R.id.EditSaveButton);
         EditCancel=view.findViewById(R.id.EditCancelButton);
@@ -48,7 +48,7 @@ public class EditContactDialogFragment extends DialogFragment {
             public void onClick(View view) {
                 String ContactID=ContactID_.getText().toString();
                 String PhoneNumber= PhoneNumber_.getText().toString();
-                String AltPhoneNumber=AltPhoneNumber_.getText().toString();
+                //String AltPhoneNumber=AltPhoneNumber_.getText().toString(); Deprecated
                 String Priority = Priority_.getText().toString();
 
                 if (ContactID.equals("")||PhoneNumber.equals("")||Priority.equals("")){
@@ -58,16 +58,28 @@ public class EditContactDialogFragment extends DialogFragment {
                 }
 
                 else {
+
 //                    double PhoneNumber__= Double.valueOf(PhoneNumber);
 //                    double AltPhoneNumber__=Double.valueOf(AltPhoneNumber);       deprecated
                     int Priority__=Integer.parseInt(Priority);
                     int ContactID_=Integer.parseInt(ContactID);
-                    AppDatabase db = AppDatabase.CreateDatabase(getContext());
-                    db.contactsDao().update(CurrentProfileId,ContactID_,PhoneNumber,Priority__);
-                    ((ProfileViewerActivity) requireActivity()).setupRecyclerView(db.contactsDao().getAllByLastName(CurrentProfileId));
-                    Toast.makeText(getContext(),"You have edited the contact",Toast.LENGTH_SHORT).show();
-                    dismiss();
 
+
+                    contacts ContactToEdit=db.contactsDao().FindByProfileIdAndContactID(CurrentProfileId,ContactID_);
+
+                    if(ContactToEdit==null){
+                        Toast.makeText(getContext(),"The Contact Id does not exist ",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
+                    else {
+
+                        db.contactsDao().update(CurrentProfileId, ContactID_, PhoneNumber, Priority__);
+                        ((ProfileViewerActivity) requireActivity()).setupRecyclerView(db.contactsDao().getAllByLastName(CurrentProfileId));
+                        Toast.makeText(getContext(), "You have edited the contact", Toast.LENGTH_SHORT).show();
+                        dismiss();
+                    }
                 }
 
 
