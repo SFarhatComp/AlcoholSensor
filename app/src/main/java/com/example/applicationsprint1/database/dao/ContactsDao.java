@@ -26,6 +26,9 @@ public interface ContactsDao {
     @Query("SELECT * FROM contact_table WHERE Profile_ID=:profileID ORDER BY priority_of_contact ASC")
     List<contacts> getAllByPriority(int profileID);
 
+    @Query("SELECT * FROM contact_table WHERE Profile_ID=:profileID ORDER BY priority_of_contact ASC")
+    contacts GetHighestPriority(int profileID);
+
 
     // This returns a contact by its contact ID, will be useful to set and fetch values for a specific ID
     @Query("SELECT * FROM contact_table WHERE Profile_ID=:profileID ")

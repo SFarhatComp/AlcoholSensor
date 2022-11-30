@@ -24,21 +24,15 @@ public class AddUserDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.dialogfragmentadduserprofile,container);
-
         FirstName_=view.findViewById(R.id.FirstNameUserInput);
         LastName_=view.findViewById(R.id.LastNameUserInput);
         Age_=view.findViewById(R.id.AgeUserInput);
         Weight_=view.findViewById(R.id.WeightUserInput);
         Gender_=view.findViewById(R.id.GenderUserInput);
         Height_=view.findViewById(R.id.HeightuserInpt);
-
         SaveButton_=view.findViewById(R.id.SaveButtonUser);
         CancelButton_=view.findViewById(R.id.CancelbuttonUser);
-
-
-
 
         CancelButton_.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -29,11 +29,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.368" />
 
-    <TextView
-        android:id="@+id/Status"
-        android:layout_width="236dp"
-        android:layout_height="117dp"
-        android:text="CurrentStatus"
-        tools:layout_editor_absoluteX="63dp"
-        tools:layout_editor_absoluteY="441dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

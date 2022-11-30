@@ -3,7 +3,10 @@ package com.example.applicationsprint1;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -11,7 +14,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -44,14 +49,12 @@ public class TestActivity extends AppCompatActivity {
     ArrayList <Double> Temp= new ArrayList<Double>();
     Button CallButton,TextButton,TextButton2,DismissButton;
     BottomSheetDialog dialog;
-
+    static int PERMISSION_CODE = 100;
     int profileID;
     int average;
     int Totalsum=0;
     String DrivingCapabilities;
     ConstraintLayout constraintLayout;
-
-
     AppDatabase db = AppDatabase.CreateDatabase(this);
 
 
@@ -71,12 +74,23 @@ public class TestActivity extends AppCompatActivity {
         constraintLayout= findViewById(R.id.constraintLayout);
         setupUI();
         CreateDialog();
+
+
+        if (ContextCompat.checkSelfPermission(TestActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(TestActivity.this, new String[]{Manifest.permission.CALL_PHONE},PERMISSION_CODE);
+
+
+        }
+
+
+
+
     }
 
     private void setupUI(){
         testButton = findViewById(R.id.button);
         tv = (TextView) findViewById(R.id.textView2);
-        tv2 = (TextView) findViewById(R.id.Status);
         testButton.setText("TEST");
 
         testButton.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +140,12 @@ public class TestActivity extends AppCompatActivity {
 
                 Toast.makeText(TestActivity.this, "You have successfully called ", Toast.LENGTH_LONG).show();
 
+                String PhoneNumber;
+                PhoneNumber = "" + db.contactsDao().GetHighestPriority(profileID).contactPhoneNumber;
+
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:"+PhoneNumber));
+                startActivity(i);
 
                 dialog.dismiss();
                 Toast.makeText(TestActivity.this, "Dismissed ", Toast.LENGTH_LONG).show();
@@ -200,6 +220,7 @@ public class TestActivity extends AppCompatActivity {
         @SuppressLint({"DefaultLocale", "MissingPermission"})
         @Override
         public void onReceive(Context context, Intent intent) {
+
             final String action = intent.getAction();
             tv.setText("Please blow into the sensor  for 5 seconds");
             testButton.setText("Currently Testing ");
@@ -215,6 +236,7 @@ public class TestActivity extends AppCompatActivity {
                for (int i =0 ; i<5; i++){
                     Totalsum += Temp.get(i);
                 }
+               Temp.clear();
                 average= Totalsum/5;
                //call the stop function
                 unregisterReceiver(Receiver);
@@ -253,6 +275,9 @@ public class TestActivity extends AppCompatActivity {
 
                 profile profileobj = db.profileDao().FindById(profileID);
                 db.dataDao().insertData(new data_entries(0,average,profileID,profileobj.lastname,profileobj.firstName,DrivingCapabilities,new SimpleDateFormat("yyyy.MM.dd @ hh:mm:ss").format(new Timestamp(System.currentTimeMillis()))));
+
+
+
                 Toast.makeText(getApplicationContext(),"Thank you for testing ",Toast.LENGTH_SHORT).show();
 
 

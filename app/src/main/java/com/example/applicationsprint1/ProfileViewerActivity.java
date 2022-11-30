@@ -35,7 +35,7 @@ public class ProfileViewerActivity extends AppCompatActivity {
      //Declarations for the list
     protected RecyclerView ListOfContacts_;
     protected ContactRecyclerViewAdapter contactRecyclerViewAdapter;
-    protected AppDatabase db = AppDatabase.CreateDatabase(this);
+    protected AppDatabase db ;
     protected   List<contacts> contactsL;
     protected List<contacts> contactsL2;
     protected  int condition =-1;
@@ -47,7 +47,7 @@ public class ProfileViewerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_viewer);
-
+        db = AppDatabase.CreateDatabase(this);
         // Setting up the XML File
         ProfileName = findViewById(R.id.CurrentUserName);
         ProfileAge = findViewById(R.id.CurrentUserAge);
