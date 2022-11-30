@@ -39,8 +39,8 @@ public interface ContactsDao {
 
 
 
-    @Query("UPDATE contact_table SET contact_phoneNumber=:PhoneNumber,contact_alternatePhoneNumber=:AltPhoneNo,priority_of_contact=:Priority WHERE Profile_ID=:profileID AND contactID=:contact_ID")
-    void update(int profileID,int contact_ID,double PhoneNumber, double AltPhoneNo, int Priority);
+    @Query("UPDATE contact_table SET contact_phoneNumber=:PhoneNumber,priority_of_contact=:Priority WHERE Profile_ID=:profileID AND contactID=:contact_ID")
+    void update(int profileID,int contact_ID,String PhoneNumber, int Priority);
 
     @Insert
     void InsertContact(contacts... Contact);

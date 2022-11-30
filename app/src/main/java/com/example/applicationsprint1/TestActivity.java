@@ -53,6 +53,7 @@ public class TestActivity extends AppCompatActivity {
     int profileID;
     int average;
     int Totalsum=0;
+    double s2;
     String DrivingCapabilities;
     ConstraintLayout constraintLayout;
     AppDatabase db = AppDatabase.CreateDatabase(this);
@@ -140,10 +141,9 @@ public class TestActivity extends AppCompatActivity {
 
                 Toast.makeText(TestActivity.this, "You have successfully called ", Toast.LENGTH_LONG).show();
 
-                String PhoneNumber;
-                PhoneNumber = "" + db.contactsDao().GetHighestPriority(profileID).contactPhoneNumber;
-
+                String PhoneNumber ="" + db.contactsDao().GetHighestPriority(profileID).contactPhoneNumber;
                 Intent i = new Intent(Intent.ACTION_DIAL);
+                Log.e("PhoneNumber",PhoneNumber);
                 i.setData(Uri.parse("tel:"+PhoneNumber));
                 startActivity(i);
 
@@ -225,7 +225,10 @@ public class TestActivity extends AppCompatActivity {
             tv.setText("Please blow into the sensor  for 5 seconds");
             testButton.setText("Currently Testing ");
             String s = intent.getStringExtra(BLEService.SERIALOUPUT);
-            double s2 = Double.valueOf(s);
+
+            if(!(s.isEmpty())){
+                s2 = Double.valueOf(s);
+
 
             if (s2>150.0){
             Temp.add(s2);
@@ -287,6 +290,8 @@ public class TestActivity extends AppCompatActivity {
 
             //tv.setText(intent.getStringExtra(BLEService.SERIALOUPUT));
             Log.i("TEST", intent.getStringExtra(BLEService.SERIALOUPUT));
+        }
+
         }
     };
 }

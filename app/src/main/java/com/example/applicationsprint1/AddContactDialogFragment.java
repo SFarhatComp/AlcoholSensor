@@ -35,7 +35,7 @@ public class AddContactDialogFragment extends DialogFragment {
         FirstName_ = view.findViewById(R.id.FirstNameInput);
         LastName_ = view.findViewById(R.id.LastNameInput);
         PhoneNumber_ = view.findViewById(R.id.PhoneNumberInput);
-        AltPhoneNumber_ = view.findViewById(R.id.AltPhoneNumberInput);
+       // AltPhoneNumber_ = view.findViewById(R.id.AltPhoneNumberInput); deprecated
         Priority_ = view.findViewById(R.id.PriorityInput);
         SaveButton_=view.findViewById(R.id.SaveButton);
         CancelButton_=view.findViewById(R.id.CancelButton);
@@ -47,7 +47,7 @@ public class AddContactDialogFragment extends DialogFragment {
                 String FirstName = FirstName_.getText().toString();
                 String LastName= LastName_.getText().toString();
                 String PhoneNumber= PhoneNumber_.getText().toString();
-                String AltPhoneNumber=AltPhoneNumber_.getText().toString();
+                //String AltPhoneNumber=AltPhoneNumber_.getText().toString(); Deprecated
                 String Priority = Priority_.getText().toString();
 
                 if (FirstName.equals("")||LastName.equals("")||PhoneNumber.equals("")||Priority.equals("")){
@@ -57,12 +57,10 @@ public class AddContactDialogFragment extends DialogFragment {
 
                 else {
 
-                    double PhoneNumber__= Double.valueOf(PhoneNumber);
-                    double AltPhoneNumber__=Double.valueOf(AltPhoneNumber);
                     int Priority__=Integer.parseInt(Priority);
 
                     AppDatabase db = AppDatabase.CreateDatabase(getContext());
-                    db.contactsDao().InsertContact(new contacts(CurrentProfileId,0,FirstName,LastName,PhoneNumber__,AltPhoneNumber__,Priority__));
+                    db.contactsDao().InsertContact(new contacts(CurrentProfileId,0,FirstName,LastName,PhoneNumber,Priority__));
                     ((ProfileViewerActivity) requireActivity()).setupRecyclerView(db.contactsDao().getAllByLastName(CurrentProfileId));
                     Toast.makeText(getContext(),"You have added this contact",Toast.LENGTH_SHORT).show();
                     dismiss();

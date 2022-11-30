@@ -65,7 +65,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
         // This implementation show when the organize button is not clicked
         holder.getContactName().setText(localSetOfContacts.get(position).contactID + ". " +localSetOfContacts.get(position).contactLastName + " , "+localSetOfContacts.get(position).contactFirstName);
-        holder.getContactPhone().setText(String.format("%d",(long)localSetOfContacts.get(position).contactPhoneNumber).substring(0,3)+"-"+String.format("%d",(long)localSetOfContacts.get(position).contactPhoneNumber).substring(3,6)+"-"+String.format("%d",(long)localSetOfContacts.get(position).contactPhoneNumber).substring(6,10));
+        holder.getContactPhone().setText((localSetOfContacts.get(position).contactPhoneNumber).substring(0,3)+"-"+(localSetOfContacts.get(position).contactPhoneNumber).substring(3,6)+"-"+(localSetOfContacts.get(position).contactPhoneNumber).substring(6,10));
         holder.getContactPriority().setText("Priority: " + localSetOfContacts.get(position).priority);
 
 

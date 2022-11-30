@@ -31,7 +31,7 @@ public class EditContactDialogFragment extends DialogFragment {
         CurrentProfileId=getArguments().getInt("CurrentProfile",0);
         View view = inflater.inflate(R.layout.dialogfragmenteditcontact,container);
         PhoneNumber_= view.findViewById(R.id.EditPhoneNumberInput);
-        AltPhoneNumber_=view.findViewById(R.id.EditAlternatePhoneNumber);
+        //AltPhoneNumber_=view.findViewById(R.id.EditAlternatePhoneNumber); deprecated
         Priority_=view.findViewById(R.id.EditPriorityNumber);
         ContactID_=view.findViewById(R.id.ContactIDInput);
 
@@ -58,12 +58,12 @@ public class EditContactDialogFragment extends DialogFragment {
                 }
 
                 else {
-                    double PhoneNumber__= Double.valueOf(PhoneNumber);
-                    double AltPhoneNumber__=Double.valueOf(AltPhoneNumber);
+//                    double PhoneNumber__= Double.valueOf(PhoneNumber);
+//                    double AltPhoneNumber__=Double.valueOf(AltPhoneNumber);       deprecated
                     int Priority__=Integer.parseInt(Priority);
                     int ContactID_=Integer.parseInt(ContactID);
                     AppDatabase db = AppDatabase.CreateDatabase(getContext());
-                    db.contactsDao().update(CurrentProfileId,ContactID_,PhoneNumber__,AltPhoneNumber__,Priority__);
+                    db.contactsDao().update(CurrentProfileId,ContactID_,PhoneNumber,Priority__);
                     ((ProfileViewerActivity) requireActivity()).setupRecyclerView(db.contactsDao().getAllByLastName(CurrentProfileId));
                     Toast.makeText(getContext(),"You have edited the contact",Toast.LENGTH_SHORT).show();
                     dismiss();

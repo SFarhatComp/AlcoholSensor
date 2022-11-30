@@ -44,17 +44,6 @@
         android:inputType="number" />
 
     <EditText
-        android:id="@+id/EditAlternatePhoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:hint="Alternate Phone Number"
-        android:inputType="number" />
-
-    <EditText
         android:id="@+id/EditPriorityNumber"
         android:layout_width="match_parent"
         android:layout_height="58dp"
