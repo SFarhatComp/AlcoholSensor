@@ -54,6 +54,7 @@ public class TestActivity extends AppCompatActivity {
 
     private boolean testing;
     Button testButton;
+    Button backButton;
     BLEService ble;
     Intent gattServiceIntent;
     IntentFilter intentFilter;
@@ -91,6 +92,8 @@ public class TestActivity extends AppCompatActivity {
         constraintLayout= findViewById(R.id.constraintLayout);
         setupUI();
         CreateDialog();
+        Latitude="Unknown";
+        Longitude="Unknown";
 
 
         if (ContextCompat.checkSelfPermission(TestActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
@@ -122,6 +125,7 @@ public class TestActivity extends AppCompatActivity {
 
     private void setupUI(){
         testButton = findViewById(R.id.button);
+        backButton = findViewById(R.id.BackButton2);
         tv = (TextView) findViewById(R.id.textView2);
         testButton.setText("TEST");
 
@@ -133,6 +137,12 @@ public class TestActivity extends AppCompatActivity {
                 }
 
 
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
         });
     }
 
@@ -261,6 +271,7 @@ public class TestActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
             final String action = intent.getAction();
+            backButton.setVisibility(View.GONE);
             tv.setText("Please blow into the sensor  for 5 seconds");
             testButton.setText("Currently Testing ");
             String s = intent.getStringExtra(BLEService.SERIALOUPUT);
