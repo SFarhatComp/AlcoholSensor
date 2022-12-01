@@ -201,7 +201,7 @@ public class TestActivity extends AppCompatActivity {
 
                 PhoneNumber ="" + db.contactsDao().GetHighestPriority(profileID).contactPhoneNumber;
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(PhoneNumber, null, " Please come and get me at location : " + Latitude + " " + Longitude,null,null );
+                smsManager.sendTextMessage(PhoneNumber, null, " I have been drinking, can you please come and get me at this location : " + Latitude + " " + Longitude,null,null );
                 Toast.makeText(TestActivity.this, "You have successfully texted a automated message ", Toast.LENGTH_LONG).show();
 
 

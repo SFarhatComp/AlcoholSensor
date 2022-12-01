@@ -13,6 +13,8 @@ import java.util.List;
 @Dao
 public interface ProfileDao {
     // This returns a list of all profile
+
+
     @Query("SELECT * from profile_table")
     List<profile> getAll();
 

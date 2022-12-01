@@ -70,7 +70,6 @@ public class AddContactDialogFragment extends DialogFragment {
             }
         });
 
-
         CancelButton_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
