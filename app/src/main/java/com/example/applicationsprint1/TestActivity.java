@@ -1,5 +1,7 @@
 package com.example.applicationsprint1;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -16,10 +18,13 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.net.Uri;
 import android.nfc.Tag;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Looper;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
@@ -31,9 +36,15 @@ import android.widget.Toast;
 import com.example.applicationsprint1.database.AppDatabase;
 import com.example.applicationsprint1.database.entities.data_entries;
 import com.example.applicationsprint1.database.entities.profile;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -57,7 +68,10 @@ public class TestActivity extends AppCompatActivity {
     double s2;
     String PhoneNumber;
     String DrivingCapabilities;
+    String Latitude;
+    String Longitude;
     ConstraintLayout constraintLayout;
+    LocationCallback locationCallback;
     AppDatabase db = AppDatabase.CreateDatabase(this);
 
 
@@ -94,6 +108,13 @@ public class TestActivity extends AppCompatActivity {
 
         }
 
+        if (ContextCompat.checkSelfPermission(TestActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(TestActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},PERMISSION_CODE);
+
+
+        }
+        updateLocation();
 
 
 
@@ -170,7 +191,7 @@ public class TestActivity extends AppCompatActivity {
 
                 PhoneNumber ="" + db.contactsDao().GetHighestPriority(profileID).contactPhoneNumber;
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(PhoneNumber, null, " Please come and get me at location : ",null,null );
+                smsManager.sendTextMessage(PhoneNumber, null, " Please come and get me at location : " + Latitude + " " + Longitude,null,null );
                 Toast.makeText(TestActivity.this, "You have successfully texted a automated message ", Toast.LENGTH_LONG).show();
 
 
@@ -314,4 +335,26 @@ public class TestActivity extends AppCompatActivity {
 
         }
     };
+
+    @SuppressLint("MissingPermission")
+    protected void updateLocation(){
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null)
+                    Log.i("TEST", "Location is null");
+                Latitude=Double.toString(locationResult.getLastLocation().getLatitude());
+                Longitude=Double.toString(locationResult.getLastLocation().getLongitude());
+                Log.i("TEST", Latitude);
+                Log.i("TEST", Longitude);
+                if (Longitude != null && Latitude != null) {
+                    Log.i("TEST", "Stopped logging location");
+                    fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+                }
+            }
+        };
+        LocationRequest locationRequest = LocationRequest.create().setInterval(100).setFastestInterval(3000).setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setMaxWaitTime(100);
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
+    }
 }

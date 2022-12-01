@@ -1,5 +1,6 @@
 package com.example.applicationsprint1;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -81,6 +83,21 @@ void OnClicks(){
             AddUserDialogFragment dialog = new AddUserDialogFragment();
             dialog.show(getSupportFragmentManager(),"AddUserDialogFragment");
             // This button should call a fragment that would allow a user to create a "profile:
+        }
+    });
+    DisplayButton_.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            AlertDialog message = new AlertDialog.Builder(MainActivity.this).create();
+            message.setTitle("DISCLAIMER");
+            message.setMessage("You must be of legal drinking age to use this app. The readings from this app do not hold any legal value and may not be accurate. An officer of the law may have different values");
+            message.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    message.dismiss();
+                }
+            });
+            message.show();
         }
     });
 

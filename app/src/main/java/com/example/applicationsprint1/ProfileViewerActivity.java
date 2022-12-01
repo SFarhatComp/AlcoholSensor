@@ -1,17 +1,23 @@
 package com.example.applicationsprint1;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.applicationsprint1.database.AppDatabase;
 import com.example.applicationsprint1.database.entities.contacts;
@@ -77,7 +83,7 @@ public class ProfileViewerActivity extends AppCompatActivity {
         if (profileId != 0) {
             profile Profile = db.profileDao().FindById(profileId);
             ProfileName.setText(Profile.profileID + ". " + Profile.lastname + ", " + Profile.firstName);
-            ProfileAge.setText("User's Age : " + Profile.age + "     User's Gender:  " + Profile.gender);
+            ProfileAge.setText("User's Gender:  " + Profile.gender);
             ProfileBody.setText("Height:  " + Profile.height + ",   Weight: " + Profile.weight);
             //contactsL = db.contactsDao().getAllByLastName(profileId);
             //contactsL2 = db.contactsDao().getAllByPriority(profileId);
@@ -218,11 +224,38 @@ public class ProfileViewerActivity extends AppCompatActivity {
         TestHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                profile Profile = db.profileDao().FindById(profileId);
+                AlertDialog password = new AlertDialog.Builder(ProfileViewerActivity.this).create();
+                final EditText input = new EditText(ProfileViewerActivity.this);
+                input.setHint("Enter your PIN");
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setTransformationMethod(new PasswordTransformationMethod());
+                password.setTitle("Protected");
+                password.setIcon(R.drawable.locked_1f512);
+                password.setView(input);
+                password.setButton(AlertDialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (Integer.parseInt(input.getText().toString()) == Profile.age) {
+                            password.dismiss();
+                            Intent intent = new Intent(getApplicationContext(), historyactivity.class);
+                            intent.putExtra("Profile_Id", profileId);
+                            startActivity(intent);
+                        }
+                        else{
+                            password.dismiss();
+                            Toast.makeText(ProfileViewerActivity.this, "Wrong PIN", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                password.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        password.dismiss();
+                    }
+                });
+                password.show();
 
-
-                Intent intent = new Intent(getApplicationContext(), historyactivity.class);
-                intent.putExtra("Profile_Id",profileId);
-                startActivity(intent);
                 // Implement the test history viewer activity.
 
             }

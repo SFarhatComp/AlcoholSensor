@@ -84,12 +84,12 @@
         android:id="@+id/AgeUserInput"
         android:layout_width="match_parent"
         android:layout_height="63dp"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:hint="Age"
         android:digits="0123456789"
+        android:ems="10"
+        android:hint="History PIN"
         android:inputType="number" />
 
     <Button
