@@ -57,7 +57,7 @@ public class HistoryViewerCustomeAdapter extends RecyclerView.Adapter<HistoryVie
         public void onBindViewHolder(@NonNull com.example.applicationsprint1.HistoryViewerCustomeAdapter.ViewHolder holder, int position) {
 
             // Setting the text on text viewer
-            holder.getTextHistoryInformation().setText( listofData.get(position).dataID+". "+listofData.get(position).canHeDrive);
+            holder.getTextHistoryInformation().setText( listofData.get(position).canHeDrive);
             holder.getTextDateofHistory().setText(listofData.get(position).dateOfData);
 
             // Setting ON click Listener in Order to Open a Specific Profile ;

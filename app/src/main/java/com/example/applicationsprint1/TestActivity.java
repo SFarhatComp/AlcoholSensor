@@ -272,7 +272,7 @@ public class TestActivity extends AppCompatActivity {
 
             final String action = intent.getAction();
             backButton.setVisibility(View.GONE);
-            tv.setText("Please blow into the sensor  for 5 seconds");
+            tv.setText("Please blow into the sensor  for 10 seconds");
             testButton.setText("Currently Testing ");
             String s = intent.getStringExtra(BLEService.SERIALOUPUT);
 
@@ -291,6 +291,7 @@ public class TestActivity extends AppCompatActivity {
                 }
                Temp.clear();
                 average= Totalsum/5;
+                Totalsum=0;
                //call the stop function
                 unregisterReceiver(Receiver);
                 unbindService(serviceConnection);
@@ -318,7 +319,6 @@ public class TestActivity extends AppCompatActivity {
                 { DrivingCapabilities ="You are fit to drive" ;
 
                    // createSnackbar();
-                    dialog.show();
 
                 }
 
@@ -335,7 +335,7 @@ public class TestActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(),"Thank you for testing ",Toast.LENGTH_SHORT).show();
 
-
+                backButton.setVisibility(View.VISIBLE);
             }
 
 

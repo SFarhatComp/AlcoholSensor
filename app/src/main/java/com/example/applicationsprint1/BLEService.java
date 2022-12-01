@@ -136,6 +136,10 @@ public class BLEService extends Service {
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
+
+            final byte[] SerialRaw = characteristic.getValue();
+
+            if ((SerialRaw!=null)){
             String SerialOutput = new String(characteristic.getValue());
 
 
@@ -143,7 +147,7 @@ public class BLEService extends Service {
             intent.putExtra(SERIALOUPUT, SerialOutput);
             sendBroadcast(intent);
             Log.i(TAG, SerialOutput);
-
+            }
 
         }
 
